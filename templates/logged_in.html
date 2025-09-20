@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block body %}
+  <h1>Welcome</h1>
+  <div class="card">
+    <div style="display:flex;gap:16px;align-items:center;">
+      {% if user.picture %}
+        <img src="{{ user.picture }}" alt="avatar" style="width:88px;height:88px;border-radius:50%">
+      {% endif %}
+      <div>
+        <div style="font-size:20px;">
+          Hello {{ user.name }} &nbsp; <a href="{{ url_for('logout') }}">[Sign out]</a>
+        </div>
+        <div>You are signed in with the email <b>{{ user.email }}</b></div>
+        <div style="opacity:0.8;margin-top:6px">Current Indian time: <b>{{ ist_time }}</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid two">
+    <div class="card">
+      <h2>Printing Design</h2>
+      <form method="POST" action="{{ url_for('pattern') }}">
+        <label>Number of Lines (max 100): </label>
+        <input type="number" name="lines" min="1" max="100" required>
+        <button class="btn" type="submit">Display</button>
+      </form>
+      {% if pattern_lines %}
+        <h3 style="margin-top:14px">Output:</h3>
+        <pre>{{ pattern_lines }}</pre>
+      {% endif %}
+    </div>
+
+    <div class="card">
+      <h2>News Video Generator</h2>
+      <form method="POST" action="{{ url_for('generate_video') }}" enctype="multipart/form-data">
+        <label>Upload up to 5 images:</label><br>
+        <input type="file" name="media" accept="image/*" multiple required><br><br>
+        <label>Headline (optional):</label><br>
+        <input type="text" name="headline" placeholder="Breaking: Today’s top story"><br><br>
+        <button class="btn" type="submit">Generate a news video</button>
+      </form>
+      {% if video_url %}
+        <h3 style="margin-top:14px">Result:</h3>
+        <video class="video" controls src="{{ video_url }}"></video>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

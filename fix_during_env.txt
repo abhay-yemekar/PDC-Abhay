@@ -1,0 +1,11 @@
+Run this in - powershell
+
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+Now activate 
+
+.\.venv\Scripts\Activate.ps1
+
+Link to open ;
+
+http://localhost:5000
